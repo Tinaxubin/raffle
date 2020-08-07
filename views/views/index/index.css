@@ -1,0 +1,15 @@
+.container{
+  display: flex;
+  background-color: #ccc;
+}
+.box1,.box2,.box3{
+  flex: 1;
+  border: 1px solid rgb(199, 188, 188);
+  height: 560px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+ul li{
+  line-height: 40px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="index.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="box1">
+      <ul>
+        <li>
+          <span>'111111'</span>
+        </li>
+      </ul>
+    </div>
+    <div class="box2">
+
+    </div>
+    <div class="box3">
+
+    </div>
+  </div>
+  <div>
+    <button type="button" name="seach" onclick="FuncCSVInport()">CSV Import</button>
+    <input type="file" id="csvFileInput" onchange="readCSVFile(this)"/>
+  </div>
+  <script>
+     function FuncCSVInport() {
+         $("#csvFileInput").val("");
+         $("#csvFileInput").click();
+     }
+
+     function readCSVFile(obj) {
+         var reader = new FileReader();
+         reader.readAsText(obj.files[0]);
+         reader.onload = function () {
+          var csvarry = this.result.split("\r\n");
+              //  var data = csvToObject(this.result);
+                console.log(csvarry);//data为csv转换后的对象
+        }
+     }
+  </script>
+</body>
+</html>
