@@ -1,0 +1,64 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.container{
+  display: flex;
+  background-color: #ccc;
+}
+.box1,.box2,.box3{
+  flex: 1;
+  border: 1px solid rgb(199, 188, 188);
+  height: 560px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+ul li{
+  line-height: 40px;
+}
+
+
+
+
+/************************** dialog样式 ****************************/
+.dialog {
+  width: 450px;
+  /* height: 300px; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  display: none;
+}
+.dialog .dialog-title {
+  color: #fff;
+  font-size: 1.8rem;
+  text-align: center;
+  line-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #e8392a;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.dialog-title::after {
+  content: '';
+  border: 1px solid #fff;
+}
+.dialog .dialog-content {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 24px;
+}
+.dialog .dialog-content p {
+  padding: 3px 0;
+}

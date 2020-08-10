@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-07 15:01:03
+ * @LastEditTime: 2020-08-07 16:30:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \friday\raffle\views\index.html
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +14,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="./index.css">
+  <script src="./jquery.min.js"></script>
+  <script src="../conf/constant.js"></script>
   <script src="index.js"></script>
+  <script src="./choose.js"></script>
+  <script src="./xlsx.core.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -28,6 +40,10 @@
     <button type="button" name="seach" onclick="FuncCSVInport()">CSV Import</button>
     <input type="file" id="csvFileInput" onchange="readCSVFile(this)"/>
   </div>
+  <div class="dialog" id="dialog">
+    <div class="dialog-title">xxx中奖名单</div>
+    <div class="dialog-content"></div>
+  </div>
   <script>
      function FuncCSVInport() {
          $("#csvFileInput").val("");
@@ -40,7 +56,8 @@
          reader.onload = function () {
           var csvarry = this.result.split("\r\n");
               //  var data = csvToObject(this.result);
-                console.log(csvarry);//data为csv转换后的对象
+          console.log(csvarry);//data为csv转换后的对象
+          window.base = csvarry
         }
      }
   </script>
