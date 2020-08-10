@@ -8,9 +8,11 @@ $(function(){
     var e = event || window.event || arguments.callee.caller.arguments[0];
     if (e && e.keyCode == 13) { // enter 键
       if(count % 2 === 0) {
-        closeDialog()
-        interval = setInterval(()=> {doscroll()}, 5);
-        MyMar = setInterval(Marquee, 2); //设置定时器
+        if(window.start <= window.prize.length - 1) {
+          closeDialog()
+          interval = setInterval(()=> {doscroll()}, 5);
+          MyMar = setInterval(Marquee, 2); //设置定时器
+        }
       } else {
         startRaffle()
         clearInterval(interval);//停止
@@ -73,7 +75,6 @@ var doscroll = function(){
 function startRaffle () {
   if (window.base.length > 0) {
     if(window.start > window.prize.length - 1) {
-      // window.start = window.prize.length
       window.selected = []
     } else {
       const selected = raffle(window.base)
