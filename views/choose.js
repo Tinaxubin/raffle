@@ -4,29 +4,31 @@ $(function(){
   $(document).on('click', closeDialog)
 })
 function startRaffle () {
-  const selected = raffle(window.base)
-  window.selected = window.selected.concat(selected)
-  $('#dialog').fadeIn()
-  $('.dialog-content').empty()
-  let tempObj = ''
-  for(let k = 0; k < selected.length; k++) {
-    tempObj += `<p>${selected[k]}</p>`
-  }
-  $('.dialog-content').append(tempObj)
-  $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
-  console.log(window.start, 'window')
-  window.start--
-  console.log(window.start, 'window.start')
-  if(window.start < 0) {
-    window.start = window.prize.length - 1
-    window.selected = []
+  if (window.base.length > 0) {
+    const selected = raffle(window.base)
+    window.selected = window.selected.concat(selected)
+    $('#dialog').fadeIn()
+    $('.dialog-content').empty()
+    let tempObj = ''
+    for(let k = 0; k < selected.length; k++) {
+      tempObj += `<p>${selected[k]}</p>`
+    }
+    $('.dialog-content').append(tempObj)
+    $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
+    window.start--
+    if(window.start < 0) {
+      window.start = window.prize.length - 1
+      window.selected = []
+    }
+  } else {
+    $('#dialog').fadeIn()
+    $('.dialog-content').text('请导入数据')
   }
 }
 function closeDialog () {
   $('#dialog').fadeOut()
 }
-function raffle (arr) {
-  console.log(arr, 'arrrr')
+function raffle (arr = []) {
   let defaultPer = window.prize[window.start].default
   let tempArr = arr
   if (defaultPer.length > 0) { // 默认的不再参与抽奖
