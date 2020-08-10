@@ -1,0 +1,75 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-07 15:01:03
+ * @LastEditTime: 2020-08-07 16:30:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \friday\raffle\views\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src="./jquery.min.js"></script>
+  <script src="../conf/constant.js"></script>
+  <script src="./index.js"></script>
+  <!-- <script src="./choose.js"></script> -->
+</head>
+<body>
+  <div class="container">
+    <div class="box1">
+      <ul id="ul1"></ul>
+    </div>
+    <div class="box2" id="demo3">
+      <ul id="ul2"></ul>
+    </div>
+    <div class="box3">
+      <ul id="ul3"></ul>
+    </div>
+  </div>
+  <div>
+    <input type="file" id="csvFileInput" onchange="readCSVFile(this)"/>
+  </div>
+  <div class="dialog" id="dialog">
+    <div class="dialog-title">xxx中奖名单</div>
+    <div class="dialog-content"></div>
+  </div>
+  <script>
+    function readCSVFile(obj) {
+      var reader = new FileReader();
+      reader.readAsText(obj.files[0]);
+      reader.onload = function () {
+        var csvarry = this.result.split("\r\n");
+        window.base = csvarry
+        var length = parseInt(csvarry.length/3)
+        data = csvarry
+        for(var i = 1; i < length; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul1")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
+        }
+        for(var i = length; i < length * 2; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul2")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
+        }
+        for(var i = length * 2 ; i < length * 3; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul3")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
+        }
+        var $parent2 = $('.box2 ul');
+        var $last2 = $parent2.find('li:first');
+        var height2 = $last2.height();
+      }
+    }
+  </script>
+</body>
+</html>
