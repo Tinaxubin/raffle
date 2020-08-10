@@ -16,27 +16,22 @@
   <link rel="stylesheet" href="./index.css">
   <script src="./jquery.min.js"></script>
   <script src="../conf/constant.js"></script>
-  <script src="index.js"></script>
-  <script src="./choose.js"></script>
+  <script src="./index.js"></script>
+  <!-- <script src="./choose.js"></script> -->
 </head>
 <body>
   <div class="container">
     <div class="box1">
-      <ul>
-        <li>
-          <span>'111111'</span>
-        </li>
-      </ul>
+      <ul id="ul1"></ul>
     </div>
     <div class="box2">
-
+      <ul id="ul2"></ul>
     </div>
     <div class="box3">
-
+      <ul id="ul3"></ul>
     </div>
   </div>
   <div>
-    <button type="button" name="seach" onclick="FuncCSVInport()">CSV Import</button>
     <input type="file" id="csvFileInput" onchange="readCSVFile(this)"/>
   </div>
   <div class="dialog" id="dialog">
@@ -44,21 +39,37 @@
     <div class="dialog-content"></div>
   </div>
   <script>
-     function FuncCSVInport() {
-         $("#csvFileInput").val("");
-         $("#csvFileInput").click();
-     }
-
-     function readCSVFile(obj) {
-         var reader = new FileReader();
-         reader.readAsText(obj.files[0]);
-         reader.onload = function () {
-          var csvarry = this.result.split("\r\n");
-              //  var data = csvToObject(this.result);
-          console.log(csvarry);//data为csv转换后的对象
-          window.base = csvarry
+    function readCSVFile(obj) {
+      var reader = new FileReader();
+      reader.readAsText(obj.files[0]);
+      reader.onload = function () {
+        var csvarry = this.result.split("\r\n");
+        window.base = csvarry
+        var length = parseInt(csvarry.length/3)
+        data = csvarry
+        for(var i = 1; i < length; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul1")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
         }
-     }
+        for(var i = length; i < length * 2; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul2")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
+        }
+        for(var i = length * 2 ; i < length * 3; i++){
+          var li=document.createElement("li");
+          var ul = document.getElementById("ul3")
+          li.innerHTML=csvarry[i].toString();
+          ul.appendChild(li);
+        }
+        var $parent2 = $('.box2 ul');
+        var $last2 = $parent2.find('li:first');
+        var height2 = $last2.height();
+      }
+    }
   </script>
 </body>
 </html>
