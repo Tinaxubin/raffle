@@ -46,7 +46,6 @@
         var csvarry = this.result.split("\r\n");
         window.base = csvarry
         var length = parseInt(csvarry.length/3)
-        data = csvarry
         for(var i = 1; i < length; i++){
           var li=document.createElement("li");
           var ul = document.getElementById("ul1")
@@ -65,9 +64,6 @@
           li.innerHTML=csvarry[i].toString();
           ul.appendChild(li);
         }
-        var $parent2 = $('.box2 ul');
-        var $last2 = $parent2.find('li:first');
-        var height2 = $last2.height();
       }
     }
   </script>

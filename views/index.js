@@ -1,18 +1,16 @@
 $(function(){
   var count = 0
-    var interval
-    var MyMar
-    var data
-    var ulHeight1 = 0
-    var ulHeight3 = 0
+  var interval
+  var MyMar
   //回车键控制开始和停止
   $(document).keydown(function (event) {
+    $('#csvFileInput').attr('disabled','disabled');
     var e = event || window.event || arguments.callee.caller.arguments[0];
     if (e && e.keyCode == 13) { // enter 键
       if(count % 2 === 0) {
         closeDialog()
         interval = setInterval(()=> {doscroll()}, 5);
-        MyMar = setInterval(Marquee, speed); //设置定时器
+        MyMar = setInterval(Marquee, 2); //设置定时器
       } else {
         startRaffle()
         clearInterval(interval);//停止
@@ -20,39 +18,39 @@ $(function(){
       }
       count++
     }
-  });
-  $(document).on('click', closeDialog)
-  var drawLetters = document.getElementById("demo3");　　　　
-  var dl = document.getElementById("ul2");　　　　
-  var speed = 0; //滚动速度值，值越大速度越慢
-  var height22 = 10000
-  function Marquee() {　　　　　
+  })
+  $(document).on('click', closeDialog) // 关闭dialog
+  var drawLetters = document.getElementById("demo3")
+  var dl = document.getElementById("ul2")
+  // var speed = 0; //滚动速度值，值越大速度越慢
+  var height22 = 100000
+  function Marquee() {
     // console.log(drawLetters.offsetTop)
-    drawLetters.scrollTop = height22--;　　　　　　
-    var newNode = document.createElement("ul");　　　　　　
-    newNode.innerHTML = dl.innerHTML;　　　　　　
-    drawLetters.insertBefore(newNode, null);　　　　　
-  }　
-})　　　
+    height22 = height22 - 3
+    drawLetters.scrollTop = height22
+    var newNode = document.createElement("ul")　　
+    newNode.innerHTML = dl.innerHTML　　
+    drawLetters.insertBefore(newNode, null)
+  }
+})　　
 var height1 = 1
 var height3 = 1
+var ulHeight1 = 0
+var ulHeight3 = 0
 var doscroll = function(){
-  var $parent1 = $('.box1 ul');
-  var $first1 = $parent1.find('li:first');
-  // var height1 = $first1.height();
+  var $parent1 = $('.box1 ul')
   var $box1 = $('.box1')
   ulHeight1 = $parent1.height()
   $box1.animate({ scrollTop: height1 + 'px' }, 0, function(){
     height1 = height1 + 3
   });
   if(height1 > ulHeight1 - 500){
-    console.log(1111)
-    var length = parseInt(data.length/3)
+    var length = parseInt(window.base.length/3)
     for(var i = 1; i < length; i++){
-      var li=document.createElement("li");
+      var li=document.createElement("li")
       var ul = document.getElementById("ul1")
-      li.innerHTML=data[i].toString();
-      ul.appendChild(li);
+      li.innerHTML=window.base[i].toString()
+      ul.appendChild(li)
     }
   }
   var $parent3 = $('.box3 ul');
@@ -62,11 +60,11 @@ var doscroll = function(){
     height3 = height3 + 3
   });
   if(height3 > ulHeight3 - 500){
-    var length = parseInt(data.length/3)
+    var length = parseInt(window.base.length/3)
     for(var i = length * 2; i < length * 3; i++){
       var li=document.createElement("li");
       var ul = document.getElementById("ul3")
-      li.innerHTML=data[i].toString();
+      li.innerHTML=window.base[i].toString();
       ul.appendChild(li);
     }
   }
