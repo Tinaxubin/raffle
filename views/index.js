@@ -1,95 +1,94 @@
 $(function(){
   var count = 0
-  var interval
-  var data
+    var interval
+    var MyMar
+    var data
+    var ulHeight1 = 0
+    var ulHeight3 = 0
   //回车键控制开始和停止
   $(document).keydown(function (event) {
-    var e = event || window.event || arguments.callee.caller.arguments[0]
+    var e = event || window.event || arguments.callee.caller.arguments[0];
     if (e && e.keyCode == 13) { // enter 键
-      console.log(count, 'couith')
       if(count % 2 === 0) {
         closeDialog()
-        interval = setInterval(()=> {doscroll()}, 150)
+        interval = setInterval(()=> {doscroll()}, 5);
+        MyMar = setInterval(Marquee, speed); //设置定时器
       } else {
-        clearInterval(interval)//停止
         startRaffle()
+        clearInterval(interval);//停止
+        clearInterval(MyMar);//停止
       }
       count++
     }
-  })
-  // $(document).on('keydown', startRaffle)
+  });
   $(document).on('click', closeDialog)
-})
-var height = 60
+  var drawLetters = document.getElementById("demo3");　　　　
+  var dl = document.getElementById("ul2");　　　　
+  var speed = 0; //滚动速度值，值越大速度越慢
+  var height22 = 10000
+  function Marquee() {　　　　　
+    // console.log(drawLetters.offsetTop)
+    drawLetters.scrollTop = height22--;　　　　　　
+    var newNode = document.createElement("ul");　　　　　　
+    newNode.innerHTML = dl.innerHTML;　　　　　　
+    drawLetters.insertBefore(newNode, null);　　　　　
+  }　
+})　　　
+var height1 = 1
+var height3 = 1
 var doscroll = function(){
-  var $parent1 = $('.box1 ul')
-  var $first1 = $parent1.find('li:first')
-  var height1 = $first1.height()
+  var $parent1 = $('.box1 ul');
+  var $first1 = $parent1.find('li:first');
+  // var height1 = $first1.height();
   var $box1 = $('.box1')
-  $box1.animate({ scrollTop: height + 'px' }, 150, function(){
-    height = height + 60
+  ulHeight1 = $parent1.height()
+  $box1.animate({ scrollTop: height1 + 'px' }, 0, function(){
+    height1 = height1 + 3
+  });
+  if(height1 > ulHeight1 - 500){
+    console.log(1111)
     var length = parseInt(data.length/3)
-    // console.log(scrollTop)
-    // for(var i = 1; i < 3; i++){
-    //   var li=document.createElement("li");
-    //   var ul = document.getElementById("ul1")
-    //   li.innerHTML=data[i].toString();
-    //   ul.appendChild(li);
-    // }
-  })
-  // $first1.animate({
-  //   marginTop: -height1 - 5 + 'px'
-  //   // height: 0
-  // }, 50, function() {// 动画结束后，把它插到最后，形成无缝
-  // // $first1.css('height', height1).appendTo($parent1);
-  // $first1.css('marginTop', 5).appendTo($parent1);
-  // });
-  var h2 = 0
-  var $parent2 = $('.box2 ul')
-  var $last2 = $parent2.find('li:last')
-  var height2 = $last2.height()
-  var $box2 = $('.box2')
-  $box2.animate({ scrollTop: h2 + 'px' }, 150, function(){
-    h2 = h2 - 60
-    // $parent2.appendTo($box2);
-  })
-  // $parent2.animate({
-  //   marginTop:  5 + 'px'
-  // }, 50, function() {
-  // $last2.css('height', height2).prependTo($('.box2 ul'));
-  // });
-
+    for(var i = 1; i < length; i++){
+      var li=document.createElement("li");
+      var ul = document.getElementById("ul1")
+      li.innerHTML=data[i].toString();
+      ul.appendChild(li);
+    }
+  }
   var $parent3 = $('.box3 ul');
-  var $first3 = $parent3.find('li:first');
-  var height3 = $first3.height();
   var $box3 = $('.box3')
-  $box3.animate({ scrollTop: height + 'px' }, 150, function(){
-    height = height + 60
-    // $parent1.appendTo($box1);
-  })
-  // $first3.animate({
-  //   height: 0
-  // }, 50, function() {
-  // $first3.css('height', height3).appendTo($parent3);
-  // });
-}
+  ulHeight3 = $parent3.height()
+  $box3.animate({ scrollTop: height3 + 'px' }, 0, function(){
+    height3 = height3 + 3
+  });
+  if(height3 > ulHeight3 - 500){
+    var length = parseInt(data.length/3)
+    for(var i = length * 2; i < length * 3; i++){
+      var li=document.createElement("li");
+      var ul = document.getElementById("ul3")
+      li.innerHTML=data[i].toString();
+      ul.appendChild(li);
+    }
+  }
+};
 
 function startRaffle () {
   if (window.base.length > 0) {
-    const selected = raffle(window.base)
-    window.selected = window.selected.concat(selected)
-    $('#dialog').fadeIn()
-    $('.dialog-content').empty()
-    let tempObj = ''
-    for(let k = 0; k < selected.length; k++) {
-      tempObj += `<p>${selected[k]}</p>`
-    }
-    $('.dialog-content').append(tempObj)
-    $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
-    window.start++
     if(window.start > window.prize.length - 1) {
-      window.start = 0
+      // window.start = window.prize.length
       window.selected = []
+    } else {
+      const selected = raffle(window.base)
+      window.selected = window.selected.concat(selected)
+      $('#dialog').fadeIn()
+      $('.dialog-content').empty()
+      let tempObj = ''
+      for(let k = 0; k < selected.length; k++) {
+        tempObj += `<p>${selected[k]}</p>`
+      }
+      $('.dialog-content').append(tempObj)
+      $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
+      window.start++
     }
   } else {
     $('#dialog').fadeIn()
@@ -100,7 +99,7 @@ function closeDialog () {
   $('#dialog').fadeOut()
 }
 function raffle (arr = []) {
-  let defaultPer = window.prize[window.start].default
+  let defaultPer = window.prize[window.start] ? window.prize[window.start].default : []
   let tempArr = arr
   if (defaultPer.length > 0) { // 默认的不再参与抽奖
     for(let i = 0; i < defaultPer.length; i++) {
