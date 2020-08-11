@@ -28,7 +28,7 @@ $(function(){
   var height22 = 100000
   function Marquee() {
     // console.log(drawLetters.offsetTop)
-    height22 = height22 - 3
+    height22 = height22 - 5
     drawLetters.scrollTop = height22
     var newNode = document.createElement("ul")　　
     newNode.innerHTML = dl.innerHTML　　
@@ -44,7 +44,7 @@ var doscroll = function(){
   var $box1 = $('.box1')
   ulHeight1 = $parent1.height()
   $box1.animate({ scrollTop: height1 + 'px' }, 0, function(){
-    height1 = height1 + 3
+    height1 = height1 + 6
   });
   if(height1 > ulHeight1 - 500){
     var length = parseInt(window.base.length/3)
@@ -59,7 +59,7 @@ var doscroll = function(){
   var $box3 = $('.box3')
   ulHeight3 = $parent3.height()
   $box3.animate({ scrollTop: height3 + 'px' }, 0, function(){
-    height3 = height3 + 3
+    height3 = height3 + 6
   });
   if(height3 > ulHeight3 - 500){
     var length = parseInt(window.base.length/3)
@@ -71,7 +71,9 @@ var doscroll = function(){
     }
   }
 };
-
+/**
+ * 开始抽奖
+ */
 function startRaffle () {
   if (window.base.length > 0) {
     if(window.start > window.prize.length - 1) {
@@ -79,23 +81,32 @@ function startRaffle () {
     } else {
       const selected = raffle(window.base)
       window.selected = window.selected.concat(selected)
-      $('#dialog').fadeIn()
+      $('#dialog-box').fadeIn()
       $('.dialog-content').empty()
       let tempObj = ''
-      for(let k = 0; k < selected.length; k++) {
-        tempObj += `<p>${selected[k]}</p>`
+      let index = 0;
+      let newArray = [];
+      while(index < selected.length) {
+        newArray.push(selected.slice(index, index += 10));
       }
+      newArray.map(perArray => {
+        tempObj += `<div class="content-box">`
+        perArray.map(item => {
+          tempObj += `<p>${item}</p>`
+        })
+        tempObj += '</div>'
+      })
       $('.dialog-content').append(tempObj)
       $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
       window.start++
     }
   } else {
-    $('#dialog').fadeIn()
+    $('#dialog-box').fadeIn()
     $('.dialog-content').text('请导入数据')
   }
 }
 function closeDialog () {
-  $('#dialog').fadeOut()
+  $('#dialog-box').fadeOut()
 }
 function raffle (arr = []) {
   let defaultPer = window.prize[window.start] ? window.prize[window.start].default : []
