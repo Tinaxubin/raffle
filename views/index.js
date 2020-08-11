@@ -2,13 +2,14 @@ $(function(){
   var count = 0
   var interval
   var MyMar
+  var start = localStorage.getItem('start') || 0
   //回车键控制开始和停止
   $(document).keydown(function (event) {
     $('#csvFileInput').attr('disabled','disabled');
     var e = event || window.event || arguments.callee.caller.arguments[0];
     if (e && e.keyCode == 13) { // enter 键
       if(count % 2 === 0) {
-        if(window.start <= window.prize.length - 1) {
+        if(start <= window.prize.length - 1) {
           closeDialog()
           interval = setInterval(()=> {doscroll()}, 5);
           MyMar = setInterval(Marquee, 2); //设置定时器
@@ -75,11 +76,13 @@ var doscroll = function(){
  * 开始抽奖
  */
 function startRaffle () {
-  if (window.base.length > 0) {
-    if(window.start > window.prize.length - 1) {
+  const dataBase = localStorage.getItem('csvarry')
+  if (dataBase.length > 0) {
+    var start = localStorage.getItem('start') || 0
+    if(start > window.prize.length - 1) {
       window.selected = []
     } else {
-      const selected = raffle(window.base)
+      const selected = raffle(dataBase, start)
       window.selected = window.selected.concat(selected)
       $('#dialog-box').fadeIn()
       $('.dialog-content').empty()
@@ -87,7 +90,7 @@ function startRaffle () {
       let index = 0;
       let newArray = [];
       while(index < selected.length) {
-        newArray.push(selected.slice(index, index += 10));
+        newArray.push(selected.slice(index, index += 9));
       }
       newArray.map(perArray => {
         tempObj += `<div class="content-box">`
@@ -97,8 +100,9 @@ function startRaffle () {
         tempObj += '</div>'
       })
       $('.dialog-content').append(tempObj)
-      $('.dialog-title').text(window.prize[window.start].name+'获奖名单')
-      window.start++
+      $('.dialog-title').text(window.prize[start].name+'获奖名单')
+      start++
+      localStorage.setItem('start', start)
     }
   } else {
     $('#dialog-box').fadeIn()
@@ -108,8 +112,8 @@ function startRaffle () {
 function closeDialog () {
   $('#dialog-box').fadeOut()
 }
-function raffle (arr = []) {
-  let defaultPer = window.prize[window.start] ? window.prize[window.start].default : []
+function raffle (arr = [], start) {
+  let defaultPer = window.prize[start] ? window.prize[start].default : []
   let tempArr = arr
   if (defaultPer.length > 0) { // 默认的不再参与抽奖
     for(let i = 0; i < defaultPer.length; i++) {
@@ -126,7 +130,7 @@ function raffle (arr = []) {
     }
   }
   let selectedPer = []
-  for(let j = 0; j < window.prize[window.start].count - defaultPer.length; j++) {
+  for(let j = 0; j < window.prize[start].count - defaultPer.length; j++) {
     let item = tempArr[Math.floor(Math.random() * tempArr.length)]
     while (selectedPer.indexOf(item) > -1) {
       item = tempArr[Math.floor(Math.random() * tempArr.length)]
