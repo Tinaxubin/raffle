@@ -1,5 +1,7 @@
 window.switches = false // 抽奖状态，true：正在抽奖；false：结束
 window.prize = [
+  { count: 1, name: '雅迪冠能系列电动车第一轮', default: [] },
+  { count: 2, name: '雅迪冠能系列电动车第二轮', default: [] },
   { count: 1, name: 'MacBook', default: ['cxl_oo'] },
   { count: 1, name: '华为P40手机', default: ['丸之谜'] },
   { count: 2, name: 'iPad', default: ['GolfSale', '淘哥小皮球'] },
@@ -8,8 +10,8 @@ window.prize = [
   { count: 3, name: 'Dyson吹风机', default: ['您的外卖已被丢掉', '钢铁韭菜花', 'SomeoneUnknown'] },
   { count: 5, name: 'AirPods', default: ['慕阳明', '小丑龙鱼', '明大教主', '奥哈马的巴特菲', '不劳而获lucky'] },
   { count: 3, name: '华为Watch GT2', default: ['公子人如玉', '钓鱼蜜-泽北荣志', '望京林奇'] },
-  { count: 25, name: `O'Forla能量精油`, default: [] },
-  { count: 25, name: `O'Forla能量精油`, default: [] },
+  { count: 25, name: `O'Forla能量精油第一轮`, default: [] },
+  { count: 25, name: `O'Forla能量精油第二轮`, default: [] },
   { count: 10, name: `O'Forla车载净空精油套装`, default: [] }
 ]
 window.selected = []

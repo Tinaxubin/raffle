@@ -2,48 +2,40 @@
   padding: 0;
   margin: 0;
 }
+body{
+  width: 100vw;
+  height: 100vh;
+  background-color: #333;
+  overflow: hidden;
+}
 .container{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 25px auto;
+  margin: 0 auto !important;
   width: 90%;
   height: 90vh;
-  background-color: #000;
+  background-color: rgb(88, 88, 88);
 }
 .box1,.box2,.box3{
-  /* border: 1px solid rgb(199, 188, 188); */
-  /* border: 1px solid black; */
   height: 95%;
-  /* border: 1px solid rgb(199, 188, 188); */
-  height: 90%;
-  width: 350px;
+  width: 25%;
   margin: 25px;
-  /* border-radius: 10px; */
-  background-color: white;
   overflow: hidden;
-  position: relative;
   font-size: 25px;
-  background-color: #000;
-  color: #fff;
+  background-color: rgb(88, 88, 88);
+  color: white;
 }
 .container #line{
   height: 90%;
-  width: 2px;
-  background-color: black;
-}
-ul{
-  margin-top: 0px;
-  position: relative;
+  width: 5px;
+  background-color: #f7f3f3;
 }
 ul li{
   line-height: 50px;
   list-style: none;
-  /* border: 2px solid black; */
-  /* background-color:rgb(61, 58, 58); */
   margin-top: 5px;
   margin-right: 30px;
-  /* border-radius: 5px; */
   margin-left: -10px;
   text-align: center;
 }
@@ -111,7 +103,7 @@ ul li{
 }
 
 
-/**************************************************************/
+/*********************************input样式*****************************/
 .input-box {
   width: 100%;
   height: 100%;
@@ -122,4 +114,16 @@ ul li{
 .input-box input {
   padding: 100%;
   /* visibility: hidden; */
+}
+
+/*********************************底部button样式******************************************/
+.button-box {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+.button-box span {
+  padding: 8px 14px;
+  display: inline-block;
 }

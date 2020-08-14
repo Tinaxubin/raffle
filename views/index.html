@@ -12,16 +12,19 @@
 </head>
 <body>
   <div class="container">
-    <div class="box1">
+    <div class="box1" id="demo1">
       <ul id="ul1"></ul>
+      <ul id="ul11"></ul>
     </div>
     <div id="line"></div>
-    <div class="box2" id="demo3">
+    <div class="box2" id="demo2">
       <ul id="ul2"></ul>
+      <ul id="ul22"></ul>
     </div>
     <div id="line"></div>
-    <div class="box3">
+    <div class="box3" id="demo3">
       <ul id="ul3"></ul>
+      <ul id="ul33"></ul>
     </div>
   </div>
   <div class="input-box">
@@ -34,36 +37,65 @@
         <div class="dialog-content"></div>
       </div>
     </div>
-
   </div>
+  <div class="button-box" id="button-box"></div>
   <script>
+    $(function(){
+      if(localStorage.getItem('csvarry')){
+        document.getElementById('csvFileInput').setAttribute('disabled', 'disabled')
+        var csvarry = localStorage.getItem('csvarry').split(",")
+        writeData(csvarry)
+      }
+      buttonRender()
+      $('#button-box').delegate("span", "click", buttonClick)
+    })
     function readCSVFile(obj) {
       document.getElementById('csvFileInput').setAttribute('disabled', 'disabled')
       var reader = new FileReader();
       reader.readAsText(obj.files[0]);
       reader.onload = function () {
         var csvarry = this.result.split("\r\n");
-        window.base = csvarry
-        var length = parseInt(csvarry.length/3)
-        for(var i = 1; i < length; i++){
-          var li=document.createElement("li");
-          var ul = document.getElementById("ul1")
-          li.innerHTML=csvarry[i].toString();
-          ul.appendChild(li);
-        }
-        for(var i = length; i < length * 2; i++){
-          var li=document.createElement("li");
-          var ul = document.getElementById("ul2")
-          li.innerHTML=csvarry[i].toString();
-          ul.appendChild(li);
-        }
-        for(var i = length * 2 ; i < length * 3; i++){
-          var li=document.createElement("li");
-          var ul = document.getElementById("ul3")
-          li.innerHTML=csvarry[i].toString();
-          ul.appendChild(li);
-        }
+        localStorage.setItem('csvarry', csvarry)
+        writeData(csvarry);
       }
+    }
+    function writeData(csvarry) {
+      var length = parseInt(csvarry.length/3)
+      var ul = document.getElementById("ul1")
+      var ul1 = document.getElementById("ul11")
+      for(var i = 1; i < length; i++){
+        var li=document.createElement("li");
+        li.innerHTML=csvarry[i].toString();
+        ul.appendChild(li);
+      }
+      ul1.innerHTML = ul.innerHTML
+      var ul2 = document.getElementById("ul2")
+      var ul22 = document.getElementById("ul22")
+      for(var i = length; i < length * 2; i++){
+        var li=document.createElement("li");
+        li.innerHTML=csvarry[i].toString();
+        ul2.appendChild(li);
+      }
+      ul22.innerHTML = ul2.innerHTML
+      var ul3 = document.getElementById("ul3")
+      var ul33 = document.getElementById("ul33")
+      for(var i = length * 2 ; i < length * 3; i++){
+        var li=document.createElement("li");
+        li.innerHTML=csvarry[i].toString();
+        ul3.appendChild(li);
+      }
+      ul33.innerHTML = ul3.innerHTML
+    }
+    // 页面渲染button
+    function buttonRender () {
+      let tempObj = ''
+      for (let key in window.prize) {
+        tempObj += `<span index=${key}><button>${window.prize[key].name}</button></span>`
+      }
+      $('#button-box').append(tempObj)
+    }
+    // 按钮点击
+    function buttonClick () {
     }
   </script>
 </body>
